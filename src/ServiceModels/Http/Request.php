@@ -21,8 +21,7 @@ class Request {
      */
     public static function get(string $key): string|null {
 
-        if(self::method() === strtoupper('get')) 
-            return self::value($key, $_GET);
+        return self::value($key, $_GET);
     }
 
     /**
@@ -31,8 +30,7 @@ class Request {
      */
     public static function post(string $key): string|null {
         
-        if(self::method() === strtoupper('post')) 
-            return self::value($key, $_POST);
+        return self::value($key, $_POST);
     }
 
     /**

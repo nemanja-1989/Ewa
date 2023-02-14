@@ -1,5 +1,7 @@
 <?php
 
+use Nemanja\Ewa\Classes\Router;
+use Nemanja\Ewa\Controllers\BookController;
 use Nemanja\Ewa\ServiceModels\Http\Request;
 use Nemanja\Ewa\ServiceModels\Http\Server;
 use Nemanja\Ewa\Services\PDOService;
@@ -9,8 +11,12 @@ require_once dirname(__DIR__) . '/vendor/autoload.php';
 $dotenv = \Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
-header('Content-Type: text/javascript');
+$router = new Router();
 
-$method = Request::get('id');
+$router
+    ->get('/', [BookController::class, 'index'])
+    ->get('/books/create', [BookController::class, 'create'])
+    ->post('/books/store', [BookController::class, 'store']);
 
-var_dump($method);
+echo $router->resolve(Server::get('REQUEST_URI'), Request::method());
+?>

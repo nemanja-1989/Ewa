@@ -3,8 +3,6 @@
 namespace Nemanja\Ewa\Interface;
 
 interface ServiceInterface {
-    /**
-     * @return mixed
-     */
-    public static function getService();
+    
+    public static function getService(): mixed;
 }
