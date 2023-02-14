@@ -1,5 +1,7 @@
 <?php
 
+use Nemanja\Ewa\ServiceModels\Http\Request;
+use Nemanja\Ewa\ServiceModels\Http\Server;
 use Nemanja\Ewa\Services\PDOService;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
@@ -9,9 +11,6 @@ $dotenv->load();
 
 header('Content-Type: text/javascript');
 
-$method = $_SERVER['REQUEST_METHOD'];
+$method = Request::get('id');
 
-// var_dump($method);
-
-$c = PDOService::pdoConnect();
-var_dump($c);
+var_dump($method);

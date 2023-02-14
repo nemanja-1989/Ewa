@@ -4,7 +4,7 @@ header('Content-Type: text/javascript');
 $method = $_SERVER['REQUEST_METHOD'];
 
 $mysqli = new mysqli('host', 'user', 'password', 'database');
-if ($method === “GET” && isset($_GET['book_id'])) {
+if ($method === 'GET' && isset($_GET['book_id'])) {
  $res = $mysqli->query("SELECT * FROM books WHERE id = {$_GET[“book_id”]} LIMIT 1");
  $row = $res->fetch_assoc();
  print( $row);
