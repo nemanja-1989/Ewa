@@ -1,0 +1,19 @@
+{
+    "name": "nemanja/ewa",
+    "description": "Test EwaSoft",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Nemanja\\Ewa\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Nemanja Jocic",
+            "email": "nemanja_jocic@yahoo.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    }
+}
