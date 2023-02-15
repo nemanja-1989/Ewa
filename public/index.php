@@ -1,6 +1,6 @@
 <?php
 
-use Nemanja\Ewa\Classes\Router;
+use Nemanja\Ewa\Router\Router;
 use Nemanja\Ewa\Controllers\BookController;
 use Nemanja\Ewa\ServiceModels\Http\Request;
 use Nemanja\Ewa\ServiceModels\Http\Server;
@@ -13,10 +13,14 @@ $dotenv->load();
 
 $router = new Router();
 
-$router
-    ->get('/', [BookController::class, 'index'])
-    ->get('/books/create', [BookController::class, 'create'])
-    ->post('/books/store', [BookController::class, 'store']);
+$router->getAttributesFromControllers([
+    BookController::class
+]);
+
+// $router
+//     ->get('/', [BookController::class, 'index'])
+//     ->get('/books/create', [BookController::class, 'create'])
+//     ->post('/books/store', [BookController::class, 'store']);
 
 echo $router->resolve(Server::get('REQUEST_URI'), Request::method());
 ?>

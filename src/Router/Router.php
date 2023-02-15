@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Nemanja\Ewa\Classes;
+namespace Nemanja\Ewa\Router;
 
 use Exception;
+use Nemanja\Ewa\Router\Attributes\Route;
 
 class Router {
 
-    private array $routes;
+    private array $routes = [];
 
     public function register(string $requestMethod, string $route, callable|array $action): self {
 
@@ -26,14 +27,15 @@ class Router {
         return $this->register('POST', $route, $action);
     }
 
-    public function routes(): array {
+    // public function routess(): array {
 
-        return $this->routes;
-    }
+    //     return $this->routes;
+    // }
 
     public function resolve(string $requestUri, string $requestMethod) {
 
         $route = explode('?', $requestUri)[0];
+
         $action = $this->routes[$requestMethod][$route] ?? null;
 
         if(!$action) {
@@ -59,6 +61,22 @@ class Router {
 
         if(!$action) {
             throw new Exception('Route not found!');
+        }
+    }
+
+    public function getAttributesFromControllers(array $controllers) {
+
+        foreach($controllers as $controller) {
+            $reflectionController = new \ReflectionClass($controller);
+
+            foreach($reflectionController->getMethods() as $method) {
+                $attributes = $method->getAttributes(Route::class);
+
+                foreach($attributes as $attribute) {
+                    $route = $attribute->newInstance();
+                    $this->register($route->method, $route->routePath, [$controller, $method->getName()]);
+                }
+            }
         }
     }
 }
